@@ -68,34 +68,21 @@
         <div class="TheVideoSection">
             <h2>All Videos</h2>
             <div class="AllVideos">
-
+                {% for video in videos  %}
                 <a href="">
                 <div class="VideoCard">
-                    <img class="video_thumbnail" src="{% static 'images/Images/kjsce.PNG' %}">
+                    <img class="video_thumbnail" src={{video.thumbnail.url}} alt ={{video.title}}>
                     <div class="videoCard_info">
                         <i class="fa fa-user-circle VideoAvatar" aria-hidden="true"></i>
                         <div class="video_text">
-                            <h4>Kjsce placements</h4>
-                            <p>KJSCE</p>
-                            <p>100 Likes &nbsp; &#9679; Streamed on 2 oct '22 <span class="octicon octicon-alert"></span></p>
+                            <h4>{{video.title}}</h4>
+                            <p>{{video.user}}</p>
+                            <p>{{video.likes}} Likes &nbsp; &#9679; Streamed on {{video.date}}</p>
                         </div>
                     </div>
                 </div>
                 </a>
-
-                <a href="">
-                    <div class="VideoCard">
-                        <img class="video_thumbnail" src="{% static 'images/images/filtercopy.PNG' %}">
-                        <div class="videoCard_info">
-                            <i class="fa fa-user-circle VideoAvatar" aria-hidden="true"></i>
-                            <div class="video_text">
-                                <h4>What Moms want</h4>
-                                <p>Filtercopy</p>
-                                <p>2K Likes &nbsp; &#9679; Streamed on 5 oct '22 <span class="octicon octicon-alert"></span></p>
-                            </div>
-                        </div>
-                    </div>
-                    </a>
+                {% endfor %}
 
 
             </div>

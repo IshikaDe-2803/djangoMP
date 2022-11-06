@@ -1,12 +1,26 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from django.template import RequestContext
+
+from .models import NewVideo
+from django.http import HttpResponseRedirect
+from datetime import date
 
 # Create your views here.
 def homepage(request):
     # return HttpResponse('Hello')
-    return render(request,'videoapp/homepage.html')
+    videos=NewVideo.objects.all()
+    return render(request,'videoapp/homepage.html',{'videos':videos})
 
 def upload(request):
+    if request.method=="POST":
+        title=request.POST['title']
+        desc=request.POST['desc']
+        thumbnail=request.FILES['thumbnail']
+        video=request.FILES['video']
+
+        videoobj=NewVideo(title=title, description=desc, date=date.today(), thumbnail=thumbnail,video=video)
+        videoobj.save()
+        return redirect('homepage')
     return render(request,'videoapp/upload.html',{})
 
 def login(request):
