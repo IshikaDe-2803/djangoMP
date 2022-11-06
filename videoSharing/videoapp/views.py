@@ -23,6 +23,14 @@ def upload(request):
         return redirect('homepage')
     return render(request,'videoapp/upload.html',{})
 
+def video(request,pk):
+    video = NewVideo.objects.get(pk=pk)
+    print(video)
+    if request.method=="POST":
+        print(request.POST)
+        return redirect('ViewVideo',pk=pk)
+    return render(request,'videoapp/videoView.html',{'video':video})
+
 def login(request):
     return render(request,'videoapp/account/login.html',{})
 

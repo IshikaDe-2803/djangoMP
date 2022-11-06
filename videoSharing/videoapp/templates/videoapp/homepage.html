@@ -69,7 +69,7 @@
             <h2>All Videos</h2>
             <div class="AllVideos">
                 {% for video in videos  %}
-                <a href="">
+                <a href="{% url 'ViewVideo' video.pk %}">
                 <div class="VideoCard">
                     <img class="video_thumbnail" src={{video.thumbnail.url}} alt ={{video.title}}>
                     <div class="videoCard_info">
