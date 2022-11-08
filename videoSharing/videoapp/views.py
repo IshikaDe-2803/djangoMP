@@ -7,7 +7,7 @@ from django.contrib import messages
 from .forms import UserRegistrationForm
 from django.contrib.auth.forms import AuthenticationForm
 
-from .models import NewVideo
+from .models import NewVideo, User, Comment
 from django.http import HttpResponseRedirect
 from datetime import date
 
@@ -17,25 +17,39 @@ def homepage(request):
     videos=NewVideo.objects.all()
     return render(request,'videoapp/homepage.html',{'videos':videos})
 
+@login_required
 def upload(request):
-    if request.method=="POST":
-        title=request.POST['title']
-        desc=request.POST['desc']
-        thumbnail=request.FILES['thumbnail']
-        video=request.FILES['video']
-
-        videoobj=NewVideo(title=title, description=desc, date=date.today(), thumbnail=thumbnail,video=video)
+    if request.method == "POST":
+        title = request.POST['title']
+        desc = request.POST['desc']
+        thumbnail =  request.FILES['thumbnail']
+        video =  request.FILES['video']
+        videoobj= NewVideo(user=request.user,title=title,description=desc, date=date.today(),thumbnail=thumbnail,video=video )
         videoobj.save()
         return redirect('homepage')
-    return render(request,'videoapp/upload.html',{})
+    return render(request,'upload.html',{})
 
-def video(request,pk):
+def video(request, pk):
     video = NewVideo.objects.get(pk=pk)
-    print(video)
+    comments=Comment.objects.filter(video = video)
+    count = Comment.objects.filter(video = video).count()
     if request.method=="POST":
-        print(request.POST)
-        return redirect('ViewVideo',pk=pk)
-    return render(request,'videoapp/videoView.html',{'video':video})
+        if 'Addcomment' in request.POST:
+            comment_text = request.POST['Addcomment']
+            user = User.objects.first()
+            comment = Comment.objects.create(
+                user = user,
+                comment_text = comment_text,
+                video = video
+            )
+        elif 'Like' in request.POST:
+            video.likes = video.likes + 1
+            video.save()
+        elif 'Dislike' in request.POST:
+            video.dislikes = video.dislikes + 1
+            video.save()
+        return redirect('ViewVideo', pk=pk)
+    return render(request,'videoapp/videoView.html', {'video':video, 'comments':comments, 'count':count})
 
 def login(request):
     return render(request,'videoapp/account/login.html',{})

@@ -25,16 +25,15 @@
         </form>
         {% if user.is_authenticated %}
         <div class="account_section">
-            <a href = '/upload'><i class="fa fa-video-camera" aria-hidden="true" style="margin: 10px;"></i></a>
             <h4 style="margin: 6px;font-size: 18px;font-family: sans-serif;letter-spacing: 0.5px;">{{user.username}}</h4>
-            <i class="fa fa-caret-down" aria-hidden="true"></i>
+            <a href = "{% url 'logout' %}"><i class="fa fa-power-off" aria-hidden="true"></i></a>
         </div>
         {% else %}
         <div class="account_section">
-            <a href=""><button class="AuthButton" >
+            <a href="{% url 'login' %}"><button class="AuthButton" >
                Login
            </button> </a>
-           <a href=""><button class="AuthButton">
+           <a href="{% url 'register' %}"><button class="AuthButton">
                SignUp
            </button></a>
         </div>
@@ -86,33 +85,32 @@
                     <p>{{ video.description }}</p>
                 </div>
                 <div class="Next_ROW" style="height: 1.5px;width:1070px;"></div>
-
-                <h3> 100 Comments</h3>
+                {% if user.is_authenticated %}
+                <h3> {{count}} Comments</h3>
                 <div class="MyComment">
                 <form method="POST">
                     {% csrf_token %}
                     <textarea rows="4" cols="110" placeholder="Enter a comment" name="Addcomment"></textarea>
                     <button class="Comment_button" type="submit">Save</button>
                 </form>
+                {% endif %}
                 <div class="Comments">
-
                 </div>
-                    <div class="OthersComment">
-                        
-                        <div class="SingleComment">
-                            <div class="AlignCommentItem" style="display: flex;">
-                                <i class="fa fa-user-circle-o" aria-hidden="true"></i>
-                                <div class="NameText">
-                                    <h4>USER 1</h4>
-                                    <p>Comment 1</p>
-                                </div>
-
+                <div class="OthersComment">
+                    {% for comment in comments %}
+                    <div class="SingleComment">
+                        <div class="AlignCommentItem" style="display: flex;">
+                            <i class="fa fa-user-circle-o" aria-hidden="true"></i>
+                            <div class="NameText">
+                                <h4>{{comment.user}}</h4>
+                                <p>{{comment.comment_text}}</p>
                             </div>
+
                         </div>
+                    </div>
+                    {% endfor %}
                 </div>
             </div>
-
-
         </div>
     </div>
 </body>
