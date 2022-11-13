@@ -1,9 +1,7 @@
 from django.db import models
 from django.db.models.fields import CharField, TextField
-
 from django.core.validators import FileExtensionValidator
 
-# Create your models here.
 class NewVideo(models.Model):
     user="Sanyukta"
     title= models.CharField(max_length=100, default="")
