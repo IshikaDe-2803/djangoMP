@@ -11,9 +11,7 @@ from .models import NewVideo, User, Comment
 from django.http import HttpResponseRedirect
 from datetime import date
 
-# Create your views here.
 def homepage(request):
-    # return HttpResponse('Hello')
     videos=NewVideo.objects.all()
     return render(request,'videoapp/homepage.html',{'videos':videos})
 
@@ -27,7 +25,7 @@ def upload(request):
         videoobj= NewVideo(user=request.user,title=title,description=desc, date=date.today(),thumbnail=thumbnail,video=video )
         videoobj.save()
         return redirect('homepage')
-    return render(request,'upload.html',{})
+    return render(request,'videoapp/upload.html',{})
 
 def video(request, pk):
     video = NewVideo.objects.get(pk=pk)

@@ -3,7 +3,6 @@ from django.db.models.fields import CharField, TextField
 from django.contrib.auth.models import User
 from django.core.validators import FileExtensionValidator
 
-# Create your models here.
 class NewVideo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default="")
     title =  models.CharField(max_length=100, default="")
