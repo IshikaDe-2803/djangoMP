@@ -49,7 +49,9 @@ def video(request, pk):
             video.dislikes = video.dislikes + 1
             video.save()
         return redirect('ViewVideo', pk=pk)
-    return render(request,'videoapp/videoView.html', {'video':video, 'comments':comments, 'count':count})
+    num_visits = request.session.get('num_visits', 0)
+    request.session['num_visits'] = num_visits + 1
+    return render(request,'videoapp/videoView.html', {'video':video, 'comments':comments, 'count':count, 'num_visits': num_visits})
 
 def login(request):
     return render(request,'videoapp/account/login.html',{})
@@ -77,19 +79,19 @@ def register(request):
 
 def login(request):
     if request.method == "POST":
-	    form = AuthenticationForm(request, data=request.POST)
-	    if form.is_valid():
-	    	username = form.cleaned_data.get('username')
-	    	password = form.cleaned_data.get('password')
-	    	user = authenticate(username=username, password=password)
-	    	if user is not None:
-	    		auth_login(request, user)
-	    		messages.info(request, f"You are now logged in as {username}.")
-	    		return redirect("homepage")
-	    	else:
-	    		messages.error(request,"Invalid username or password.")
-	    else:
-	    	messages.error(request,"Invalid username or password.")
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                auth_login(request, user)
+                messages.info(request, f"You are now logged in as {username}.")
+                return redirect('homepage')
+            else:
+                messages.error(request,"Invalid username or password.")
+        else:
+            messages.error(request,"Invalid username or password.")
     form = AuthenticationForm()
     context = {"form": form}
     return render(request, "videoapp/login.html", context)
