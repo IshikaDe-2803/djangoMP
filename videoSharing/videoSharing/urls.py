@@ -25,7 +25,6 @@ from videoapp import views
 urlpatterns = [
     path('videoapp/', include('videoapp.urls')),
     path('admin/', admin.site.urls),
-    re_path(r'^view/(?P<pk>\d+)/$', views.video, name='ViewVideo')
 ]
 
 handler404 = "videoapp.views.error404"

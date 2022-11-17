@@ -6,32 +6,36 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import UserRegistrationForm
 from django.contrib.auth.forms import AuthenticationForm
-
+from django.db.models import Q
 from .models import NewVideo, User, Comment
 from django.http import HttpResponseRedirect
 from datetime import date
 
 def homepage(request):
-    videos=NewVideo.objects.all()
-    return render(request,'videoapp/homepage.html',{'videos':videos})
+    if request.method =='GET' and 'search_query' in request.GET:
+        query = request.GET.get('search_query')
+        videos = NewVideo.objects.filter(Q(title__icontains=query))
+    else:
+        videos = NewVideo.objects.all()
+    return render(request,'videoapp/homepage.html', {'videos':videos})
 
 @login_required
 def upload(request):
     if request.method == "POST":
         title = request.POST['title']
         desc = request.POST['desc']
-        thumbnail =  request.FILES['thumbnail']
-        video =  request.FILES['video']
-        videoobj= NewVideo(user=request.user,title=title,description=desc, date=date.today(),thumbnail=thumbnail,video=video )
+        thumbnail = request.FILES['thumbnail']
+        video = request.FILES['video']
+        videoobj = NewVideo(user=request.user, title=title, description=desc, date=date.today(),thumbnail=thumbnail, video=video)
         videoobj.save()
         return redirect('homepage')
-    return render(request,'videoapp/upload.html',{})
+    return render(request, 'videoapp/upload.html', {})
 
 def video(request, pk):
     video = NewVideo.objects.get(pk=pk)
-    comments=Comment.objects.filter(video = video)
-    count = Comment.objects.filter(video = video).count()
-    if request.method=="POST":
+    comments = Comment.objects.filter(video=video)
+    count = Comment.objects.filter(video=video).count()
+    if request.method == "POST":
         if 'Addcomment' in request.POST:
             comment_text = request.POST['Addcomment']
             user = User.objects.first()
