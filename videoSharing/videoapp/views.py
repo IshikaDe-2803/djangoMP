@@ -17,7 +17,7 @@ def homepage(request):
         videos = NewVideo.objects.filter(Q(title__icontains=query))
     else:
         videos = NewVideo.objects.all()
-    return render(request,'videoapp/homepage.html', {'videos':videos})
+    return render(request, 'videoapp/homepage.html', {'videos':videos})
 
 @login_required
 def upload(request):
@@ -26,13 +26,13 @@ def upload(request):
         desc = request.POST['desc']
         thumbnail = request.FILES['thumbnail']
         video = request.FILES['video']
-        videoobj = NewVideo(user=request.user, title=title, description=desc, date=date.today(),thumbnail=thumbnail, video=video)
+        videoobj = NewVideo(user=request.user, title=title, description=desc, date=date.today(), thumbnail=thumbnail, video=video)
         videoobj.save()
         return redirect('homepage')
     return render(request, 'videoapp/upload.html', {})
 
-def video(request, pk):
-    video = NewVideo.objects.get(pk=pk)
+def video(request, videoID):
+    video = NewVideo.objects.get(videoID=videoID)
     comments = Comment.objects.filter(video=video)
     count = Comment.objects.filter(video=video).count()
     if request.method == "POST":
@@ -50,13 +50,13 @@ def video(request, pk):
         elif 'Dislike' in request.POST:
             video.dislikes = video.dislikes + 1
             video.save()
-        return redirect('ViewVideo', pk=pk)
+        return redirect('ViewVideo', videoID=videoID)
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
-    return render(request,'videoapp/videoView.html', {'video':video, 'comments':comments, 'count':count, 'num_visits': num_visits})
+    return render(request, 'videoapp/videoView.html', {'video':video, 'comments':comments, 'count':count, 'num_visits': num_visits})
 
 def login(request):
-    return render(request,'videoapp/account/login.html',{})
+    return render(request, 'videoapp/account/login.html', {})
 
 def error404(request, exception):
     return render(request, 'videoapp/404.html')
@@ -91,9 +91,9 @@ def login(request):
                 messages.info(request, f"You are now logged in as {username}.")
                 return redirect('homepage')
             else:
-                messages.error(request,"Invalid username or password.")
+                messages.error(request, "Invalid username or password.")
         else:
-            messages.error(request,"Invalid username or password.")
+            messages.error(request, "Invalid username or password.")
     form = AuthenticationForm()
     context = {"form": form}
     return render(request, "videoapp/login.html", context)

@@ -10,7 +10,7 @@ urlpatterns = [
     path('login/', views.login, name="login"),
     path('logout/', views.logout, name="logout"),
     path('register/', views.register, name="register"),
-    re_path(r'^view/(?P<pk>\d+)/$', views.video, name='ViewVideo')
+    re_path(r'^view/(?P<videoID>\d+)/$', views.video, name='ViewVideo')
 ]
 
 
