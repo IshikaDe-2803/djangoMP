@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import UserRegistrationForm
 from django.contrib.auth.forms import AuthenticationForm
-from django.db.models import Q
+from django.db.models import Q, Max
 from .models import NewVideo, User, Comment
 from django.http import HttpResponseRedirect
 from datetime import date
@@ -35,10 +35,7 @@ def video(request, videoID):
     video = NewVideo.objects.get(pk=videoID)
     comments = Comment.objects.filter(video=video)
     count = Comment.objects.filter(video=video).count()
-    visits = NewVideo.objects.get(pk=videoID)
-    visits.visit_num = F('visit_num') + 1
-    visits.save()
-
+    video.visits = video.visits + 1
     if request.method == "POST":
         if 'Addcomment' in request.POST:
             comment_text = request.POST['Addcomment']
@@ -57,13 +54,13 @@ def video(request, videoID):
         return redirect('ViewVideo', videoID=videoID)
     num_visits = request.session.get('num_visits', 0)
     request.session['num_visits'] = num_visits + 1
-    return render(request, 'videoapp/videoView.html', {'video':video, 'comments':comments, 'count':count, 'num_visits': num_visits, 'visits':visits})
+    return render(request, 'videoapp/videoView.html', {'video':video, 'comments':comments, 'count':count, 'num_visits': num_visits})
 
 def trending(request):
     
     #video = NewVideo.objects.get(pk=videoID)
     #visits = NewVideo.objects.filter(pk=videoID)
-    max_visits = NewVideo.objects.aggregate(Max('visits'))['number__max']  # Returns the highest number.
+    max_visits = NewVideo.objects.aggregate(Max('visits'))["visits__max"] # Returns the highest number.
     trending= NewVideo.objects.filter(visits=max_visits) 
     return render(request, 'videoapp/trending.html', {'trending':trending})
 

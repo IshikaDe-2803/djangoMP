@@ -10,6 +10,7 @@ urlpatterns = [
     path('login/', views.login, name="login"),
     path('logout/', views.logout, name="logout"),
     path('register/', views.register, name="register"),
+    path('trending/', views.trending, name="trending"),
     re_path(r'^view/(?P<videoID>\d+)/$', views.video, name='ViewVideo')
 ]
 
