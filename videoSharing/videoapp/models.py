@@ -7,6 +7,7 @@ class NewVideo(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, default="")
     title =  models.CharField(max_length=100, default="")
     description = TextField(max_length=100, default="")
+    visits= models.IntegerField(default="0")
     likes = models.IntegerField(default="0")
     dislikes = models.IntegerField(default="0")
     date = models.CharField(default=" ", max_length=100)
