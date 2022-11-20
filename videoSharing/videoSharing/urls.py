@@ -23,7 +23,7 @@ from videoapp import views
 
 
 urlpatterns = [
-    path('videoapp/', include('videoapp.urls')),
+    path('', include('videoapp.urls')),
     path('admin/', admin.site.urls),
 ]
 
