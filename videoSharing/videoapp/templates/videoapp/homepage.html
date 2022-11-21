@@ -14,12 +14,13 @@
 <body>
     <div class="header_section">
         <div class="left_section">
-            <i class="fa fa-bars hamburger fa-6x" style="transform: scale(1.5,1);" aria-hidden="true"></i>
             <a href="{% url 'homepage' %}"><img class="logo-styles" src="{% static 'images/logo.png' %}" alt="VideoBox"></a>
         </div>
         <form action="{% url 'homepage' %}" method="get" class="search_section">
-            <input name="search_query" type="text" placeholder="Search...">
-            <i class="fa fa-search" aria-hidden="true"></i>
+            <!-- <input name="search_query" type="text" placeholder="Search...">
+            <i class="fa fa-search" aria-hidden="true"></i> -->
+            <input class="search-input" name="search_query" type="text" placeholder="Search something..">
+  <button class="search-btn"><i class="fa fa-search"></i></button>
         </form>
         {% if user.is_authenticated %}
         <div class="account_section">
@@ -53,16 +54,8 @@
                 <h2  class="sidebar_text" >Trending</h2>
             </div>
             </a>
-            <div class="sidebars_field" id="sidebar-row">
-                <i class="fa fa-cog icon_sidebar" aria-hidden="true" ></i>
-                <h2  class="sidebar_text" >Settings</h2>
-            </div>
             <div class="Next_ROW" ></div>
 
-            <div class="sidebars_field" id="sidebar-row">
-                <i class="fa fa-compass icon_sidebar" aria-hidden="true"></i>
-                <h2  class="sidebar_text" >Explore More</h2>
-            </div>
             {% if user.is_authenticated %}
             <div class="sidebars_field" id="sidebar-row">
                 <i class="fa fa-upload icon_sidebar" aria-hidden="true"></i>
@@ -87,7 +80,7 @@
                         <div class="video_text">
                             <h4>{{video.title}}</h4>
                             <p>{{video.user}}</p>
-                            <p>{{video.likes}} Likes &nbsp; &#9679; Streamed on {{video.date}}</p>
+                            <p>{{video.likes}} Likes &nbsp; &#9679; Uploaded on {{video.date}}</p>
                         </div>
                     </div>
                 </div>
