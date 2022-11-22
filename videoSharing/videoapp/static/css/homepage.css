@@ -25,7 +25,7 @@ a {
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     padding: 15px 45px 15px 15px;
-    background-color: #eaeaeb;
+    background-color: #f1f1f3;
     color: #6c6c6c;
     border-radius: 6px;
     border:none;
@@ -118,7 +118,7 @@ a {
     display: flex;
     justify-content:center;
     position: sticky;
-    background-color: white;
+    background-color: none;
 }
 
 .hamburger{
@@ -136,12 +136,14 @@ a {
 .SideBars {
     flex:0.17;
     /* background-color:white; */
-    background-color: rgba(88, 192, 248, 0.8);
+    /* background-color: rgba(88, 192, 248, 0.8); */
+    background-image: linear-gradient(135deg,  rgba(66, 183, 245,0.8) 0%,rgba(66, 245, 189,0.4) 100%);
 }
 
 .TheVideoSection{
     flex:0.83;
-    background-color: #f9f9f9;
+    /* background-color: #f9f9f9; */
+    background-image: url(../images/spikes.png);
     padding: 20px 20px;
     padding-bottom: 0;
 }

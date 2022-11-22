@@ -20,8 +20,8 @@
         </div>
 
         <form action="" method="get" class="search_section">
-            <input name="q" type="text" placeholder="Search...">
-            <i class="fa fa-search" aria-hidden="true"></i>
+            <input class="search-input" name="search_query" type="text" placeholder="Search something..">
+            <button class="search-btn"><span><div><i class="fa fa-search change-color"></i></div></span></button>
         </form>
         {% if user.is_authenticated %}
         <div class="account_section">
@@ -74,7 +74,7 @@
                     </div>
                 </div>
 
-                <p>{{ video.likes }} likes  &nbsp; ● Streamed live on {{ video.date }}</p>
+                <p>{{ video.likes }} likes  &nbsp; ● Streamed live on {{ video.date }}  &nbsp; ● {{ video.visits }} Views</p>
                 {% if num_visits != 0 and user.is_authenticated %}
                     <p>You have visited this page {{ num_visits }} time{{ num_visits|pluralize }}.</p>
                 {% endif %}

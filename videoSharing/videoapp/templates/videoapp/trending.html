@@ -18,8 +18,8 @@
             <a href="{% url 'homepage' %}"><img class="logo-styles" src="{% static 'images/logo.png' %}" alt="VideoBox"></a>
         </div>
         <form action="{% url 'homepage' %}" method="get" class="search_section">
-            <input name="search_query" type="text" placeholder="Search...">
-            <i class="fa fa-search" aria-hidden="true"></i>
+            <input class="search-input" name="search_query" type="text" placeholder="Search something..">
+            <button class="search-btn"><span><div><i class="fa fa-search change-color"></i></div></span></button>
         </form>
         {% if user.is_authenticated %}
         <div class="account_section">
@@ -51,30 +51,17 @@
                 <i class="fa fa-heart icon_sidebar" aria-hidden="true" ></i>
                 <h2  class="sidebar_text" >Trending</h2>
             </div>
-            <div class="sidebars_field" id="sidebar-row">
-                <i class="fa fa-cog icon_sidebar" aria-hidden="true" ></i>
-                <h2  class="sidebar_text" >Settings</h2>
-            </div>
             <div class="Next_ROW" ></div>
-
-            <div class="sidebars_field" id="sidebar-row">
-                <i class="fa fa-compass icon_sidebar" aria-hidden="true"></i>
-                <h2  class="sidebar_text" >Explore More</h2>
-            </div>
             {% if user.is_authenticated %}
             <div class="sidebars_field" id="sidebar-row">
                 <i class="fa fa-upload icon_sidebar" aria-hidden="true"></i>
                 <a href = "{% url 'UploadVideo' %}"><h2  class="sidebar_text" >Upload video</h2></a>
             </div>
             {% endif %}
-            <div class="sidebars_field" id="sidebar-row">
-                <i class="fa fa-user icon_sidebar" aria-hidden="true"></i>
-                <h2  class="sidebar_text" >Create Account</h2>
-            </div>
         </div>
 
         <div class="TheVideoSection">
-            <h2>All Videos</h2>
+            <h2>Trending</h2>
             <div class="AllVideos">
                 {% for video in trending  %}
                 <a href="{% url 'ViewVideo' video.pk %}">
