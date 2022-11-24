@@ -2,31 +2,39 @@
 {% load static %}
 
 {% block title %}
-    <title>Video Upload</title>
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+<title>Video Upload</title>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="{% static 'js/animations.js' %}"></script>
+<link rel="stylesheet" href="{% static 'css/login.css' %}">
 {% endblock title %}
 
 {% block content %}
 
-<div class="logo-styles">
-  <a href="{% url 'homepage' %}"><img src="{% static 'images/stream.png' %}" style="width:80px ;height: 80px;" alt="VideoBox"></a>
-</div>
+<div id="wrapper">
+  <div class="logo-styles">
+    <a href="{% url 'homepage' %}"><img src="{% static 'images/stream.png' %}" style="width:80px ;height: 80px;"
+        alt="VideoBox"></a>
+  </div>
 
-<div class="upload-container">
+  <div class="upload-container">
     <h2>Upload Video</h2>
     <form method="post" class="upload-form" enctype="multipart/form-data">
       {% csrf_token %}
-      
-        <label for="title" style="color: black;">Title: </label>
-        <input type="text" class="form-control" value="" name="title" id="title" placeholder="Title goes here" required><br> 
-        <label for="desc" style="color: black;">Description: </label>
-        <textarea type="text" value="" class="form-control" name="desc" placeholder="Description..." name="message" id="msg" rows="6" cols="6"></textarea>  
-        <label for="thumbnail" style="color: black;">Upload Thumbnail: </label>
-        <input type="file" class="form-control" value="" name="thumbnail" id="link" placeholder="Copy paste youtube video link" ><br>
-        <label for="video" style="color: black;">Upload Video: </label>
-        <input type="file" class="form-control" value="" name="video" id="link" placeholder="Copy paste youtube video link" ><br>
+
+      <label for="title" style="color: black;">Title: </label>
+      <input type="text" class="form-control" value="" name="title" id="title" placeholder="Title goes here"
+        required><br>
+      <label for="desc" style="color: black;">Description: </label>
+      <textarea type="text" value="" class="form-control" name="desc" placeholder="Description..." name="message"
+        id="msg" rows="6" cols="6"></textarea>
+      <label for="thumbnail" style="color: black;">Upload Thumbnail: </label>
+      <input type="file" class="form-control" value="" name="thumbnail" id="link"
+        placeholder="Copy paste youtube video link"><br>
+      <label for="video" style="color: black;">Upload Video: </label>
+      <input type="file" class="form-control" value="" name="video" id="link"
+        placeholder="Copy paste youtube video link"><br>
       <button class="btn btn-success" type="submit" id="submit-button">Submit</button>
     </form>
   </div>
+</div>
 {% endblock content %}
-

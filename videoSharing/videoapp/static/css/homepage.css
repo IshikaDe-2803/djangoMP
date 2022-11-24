@@ -2,6 +2,10 @@
 * {
     margin: 0;
 }
+
+#wrapper{
+    display: none;
+}
 a {
     text-decoration: none;
     outline: none;
@@ -106,6 +110,7 @@ h1{
     padding-bottom: 4.0px;
 }
 
+
 .fa-search {
     padding-left: 20px;
     padding-top: 0px;
@@ -159,6 +164,7 @@ h1{
 
 .VideoCard{
     width :270px;
+    padding-top: 15px;
     margin-bottom: 30px;
     padding-left: 15px;
     padding-right: 15px;
@@ -171,6 +177,13 @@ h1{
     height:140px;
     width :250px;
     border-radius: 10px;
+}
+.VideoCard:hover{
+    border-radius: 20px;
+    transition: 1s;
+    background-color: #d7d7d8;
+    height:260px;
+    
 }
 .videoCard_info{
     display:flex;
