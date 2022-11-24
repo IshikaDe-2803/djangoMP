@@ -62,12 +62,16 @@ a {
     color:black;
   }
   
+h1{
+    margin-left: 10px;
+}
 
 .logo-styles{
     height: 50px;
-    object-fit: contain;
+    object-fit:cover;
     margin-left:20px;
 }
+
 
 .account_section{
     display: flex;
@@ -156,6 +160,8 @@ a {
 .VideoCard{
     width :270px;
     margin-bottom: 30px;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 .AllVideos{
     display:flex;
@@ -164,6 +170,7 @@ a {
 .video_thumbnail{
     height:140px;
     width :250px;
+    border-radius: 10px;
 }
 .videoCard_info{
     display:flex;
