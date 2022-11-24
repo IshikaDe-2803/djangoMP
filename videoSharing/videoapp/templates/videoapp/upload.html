@@ -14,7 +14,7 @@
 
 <div class="upload-container">
     <h2>Upload Video</h2>
-    <form method="post" class="upload-form">
+    <form method="post" class="upload-form" enctype="multipart/form-data">
       {% csrf_token %}
       
         <label for="title" style="color: black;">Title: </label>
