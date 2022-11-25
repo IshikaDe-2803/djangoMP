@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
     <link rel="stylesheet" href="{% static 'css/video.css' %}">
     <script src="{% static 'js/homepage.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.css" integrity="sha512-vEia6TQGr3FqC6h55/NdU3QSM5XR6HSl5fW71QTKrgeER98LIMGwymBVM867C1XHIkYD9nMTfWK2A0xcodKHNA==" crossorigin="anonymous" referrerpolicy="no-referrer" /> 
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
     <script src="https://use.fontawesome.com/0efb5bc93c.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Eczar' rel='stylesheet'>
@@ -113,7 +114,7 @@
                     <div class="MyComment">
                         <form method="POST">
                             {% csrf_token %}
-                            <textarea rows="4" cols="110" placeholder="Enter a comment" name="Addcomment"></textarea>
+                            <textarea id="textareaid" rows="4" cols="110" placeholder="Enter a comment" name="Addcomment"></textarea>
                             <button class="Comment_button" type="submit">Save</button>
                         </form>
                         {% endif %}
@@ -136,7 +137,13 @@
                     </div>
                 </div>
             </div>
-        
+            <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/emojionearea/3.4.2/emojionearea.min.js" integrity="sha512-hkvXFLlESjeYENO4CNi69z3A1puvONQV5Uh+G4TUDayZxSLyic5Kba9hhuiNLbHqdnKNMk2PxXKm0v7KDnWkYA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+            <script>
+                $("#textareaid").emojioneArea({
+                    pickerPosition: 'bottom',
+                });
+            </script>
 </body>
 
 </html>
