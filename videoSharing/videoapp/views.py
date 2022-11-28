@@ -57,8 +57,6 @@ def video(request, videoID):
     return render(request, 'videoapp/videoView.html', {'video':video, 'comments':comments, 'count':count, 'num_visits': num_visits})
 
 def trending(request):
-    # max_visits = NewVideo.objects.aggregate(Max('visits'))["visits__max"] # Returns the highest number.
-    # trending= NewVideo.objects.filter(visits=max_visits) 
     newlist = sorted(NewVideo.objects.all(), key=lambda x: x.visits, reverse=True)
     trending=newlist[0:10]
     return render(request, 'videoapp/trending.html', {'trending':trending})
