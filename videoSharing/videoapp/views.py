@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse, redirect
+from django.shortcuts import render, redirect
 from django.template import RequestContext
 from django.contrib import messages
 from django.contrib.auth import logout as auth_logout, login as auth_login, authenticate
@@ -6,9 +6,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import UserRegistrationForm
 from django.contrib.auth.forms import AuthenticationForm
-from django.db.models import Q, Max
+from django.db.models import Q
 from .models import NewVideo, User, Comment
-from django.http import HttpResponseRedirect
 from datetime import date
 
 def homepage(request):
@@ -60,9 +59,6 @@ def trending(request):
     newlist = sorted(NewVideo.objects.all(), key=lambda x: x.visits, reverse=True)
     trending=newlist[0:10]
     return render(request, 'videoapp/trending.html', {'trending':trending})
-
-def login(request):
-    return render(request, 'videoapp/account/login.html', {})
 
 def error404(request, exception):
     return render(request, 'videoapp/404.html')
